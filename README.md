@@ -73,7 +73,7 @@ If you have VoxCeleb1 downloaded locally, you can run a 100-clip compatibility c
 python check_voxceleb1_compatibility.py --dataset_root path\to\VoxCeleb1 --sample_count 100 --output_dir results\voxceleb1_check
 ```
 
-The script samples up to 100 clips, runs the scene-frame quality check, generates RIR/RT60/DRR outputs, and writes summary JSON/CSV files.
+The script samples up to 600 clips, runs the scene-frame quality check, generates RIR/RT60/DRR outputs, and writes summary JSON/CSV files.
 
 ## AVDeepfake1M Compatibility Check
 
@@ -83,4 +83,4 @@ If your local dataset is AVDeepfake1M, use the dataset-specific checker instead:
 python check_avdeepfake1m_compatibility.py --dataset_root C:\Users\arvis\Downloads\avdeepfake1m_660_videos\AVDeepfake1M_local\videos_subset_600 --sample_count 100 --output_dir results\avdeepfake1m_check
 ```
 
-The script samples up to 100 clips from the local tree, preserves the three clip types in the subset (`real`, `real_video_fake_audio`, and `fake_video_fake_audio`), runs the visual RIR pipeline, and writes summary JSON/CSV files.
+The script samples up to 600 clips from the local tree, preserves the three clip types in the subset (`real`, `real_video_fake_audio`, and `fake_video_fake_audio`), runs the visual RIR pipeline, and writes summary JSON/CSV files.

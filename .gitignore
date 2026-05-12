@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environments
+.venv/
+.venv_win/
+
+# Per-sample result directories (contain .wav/.npy/.png per clip — too large)
+# Summary CSVs and JSON at the top of each folder are still tracked
+resultsavdeepfake1m_full/sample_*/
+resultsavdeepfake1m_check/sample_*/
+resultssmoke_test/
+
+# Large binary result files
+*.npy
+*.wav
+*.ckpt
+*.pth
+*.pth.tar
+
+# OS
+Thumbs.db
+.DS_Store

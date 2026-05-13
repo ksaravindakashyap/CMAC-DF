@@ -1,0 +1,10 @@
+fake_audio/mp4/pair_0000/video.mp4	real_audio/mp4/pair_0000/video.mp4
+fake_audio/mp4/pair_0001/video.mp4	real_audio/mp4/pair_0001/video.mp4
+fake_audio/mp4/pair_0002/video.mp4	real_audio/mp4/pair_0002/video.mp4
+fake_audio/mp4/pair_0003/video.mp4	real_audio/mp4/pair_0003/video.mp4
+fake_audio/mp4/pair_0004/video.mp4	real_audio/mp4/pair_0004/video.mp4
+fake_audio/mp4/pair_0005/video.mp4	real_audio/mp4/pair_0005/video.mp4
+fake_audio/mp4/pair_0006/video.mp4	real_audio/mp4/pair_0006/video.mp4
+fake_audio/mp4/pair_0007/video.mp4	real_audio/mp4/pair_0007/video.mp4
+fake_audio/mp4/pair_0008/video.mp4	real_audio/mp4/pair_0008/video.mp4
+fake_audio/mp4/pair_0009/video.mp4	real_audio/mp4/pair_0009/video.mp4

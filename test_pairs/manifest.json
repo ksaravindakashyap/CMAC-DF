@@ -1,0 +1,166 @@
+{
+  "metadata": {
+    "total_pairs": 10,
+    "successful_pairs": 10,
+    "failed_pairs": 0,
+    "fake_videos_downloaded": 10,
+    "real_videos_downloaded": 10
+  },
+  "pairs": [
+    {
+      "pair_id": "pair_0000",
+      "fake": {
+        "video_id": "fake_000000",
+        "url": "https://www.youtube.com/watch?v=test_fake_000000",
+        "start": 0,
+        "end": 15
+      },
+      "real": {
+        "video_id": "real_000000",
+        "url": "https://www.youtube.com/watch?v=test_real_000000",
+        "start": 0,
+        "end": 15
+      }
+    },
+    {
+      "pair_id": "pair_0001",
+      "fake": {
+        "video_id": "fake_000001",
+        "url": "https://www.youtube.com/watch?v=test_fake_000001",
+        "start": 0,
+        "end": 15
+      },
+      "real": {
+        "video_id": "real_000001",
+        "url": "https://www.youtube.com/watch?v=test_real_000001",
+        "start": 0,
+        "end": 15
+      }
+    },
+    {
+      "pair_id": "pair_0002",
+      "fake": {
+        "video_id": "fake_000002",
+        "url": "https://www.youtube.com/watch?v=test_fake_000002",
+        "start": 0,
+        "end": 15
+      },
+      "real": {
+        "video_id": "real_000002",
+        "url": "https://www.youtube.com/watch?v=test_real_000002",
+        "start": 0,
+        "end": 15
+      }
+    },
+    {
+      "pair_id": "pair_0003",
+      "fake": {
+        "video_id": "fake_000003",
+        "url": "https://www.youtube.com/watch?v=test_fake_000003",
+        "start": 0,
+        "end": 15
+      },
+      "real": {
+        "video_id": "real_000003",
+        "url": "https://www.youtube.com/watch?v=test_real_000003",
+        "start": 0,
+        "end": 15
+      }
+    },
+    {
+      "pair_id": "pair_0004",
+      "fake": {
+        "video_id": "fake_000004",
+        "url": "https://www.youtube.com/watch?v=test_fake_000004",
+        "start": 0,
+        "end": 15
+      },
+      "real": {
+        "video_id": "real_000004",
+        "url": "https://www.youtube.com/watch?v=test_real_000004",
+        "start": 0,
+        "end": 15
+      }
+    },
+    {
+      "pair_id": "pair_0005",
+      "fake": {
+        "video_id": "fake_000005",
+        "url": "https://www.youtube.com/watch?v=test_fake_000005",
+        "start": 0,
+        "end": 15
+      },
+      "real": {
+        "video_id": "real_000005",
+        "url": "https://www.youtube.com/watch?v=test_real_000005",
+        "start": 0,
+        "end": 15
+      }
+    },
+    {
+      "pair_id": "pair_0006",
+      "fake": {
+        "video_id": "fake_000006",
+        "url": "https://www.youtube.com/watch?v=test_fake_000006",
+        "start": 0,
+        "end": 15
+      },
+      "real": {
+        "video_id": "real_000006",
+        "url": "https://www.youtube.com/watch?v=test_real_000006",
+        "start": 0,
+        "end": 15
+      }
+    },
+    {
+      "pair_id": "pair_0007",
+      "fake": {
+        "video_id": "fake_000007",
+        "url": "https://www.youtube.com/watch?v=test_fake_000007",
+        "start": 0,
+        "end": 15
+      },
+      "real": {
+        "video_id": "real_000007",
+        "url": "https://www.youtube.com/watch?v=test_real_000007",
+        "start": 0,
+        "end": 15
+      }
+    },
+    {
+      "pair_id": "pair_0008",
+      "fake": {
+        "video_id": "fake_000008",
+        "url": "https://www.youtube.com/watch?v=test_fake_000008",
+        "start": 0,
+        "end": 15
+      },
+      "real": {
+        "video_id": "real_000008",
+        "url": "https://www.youtube.com/watch?v=test_real_000008",
+        "start": 0,
+        "end": 15
+      }
+    },
+    {
+      "pair_id": "pair_0009",
+      "fake": {
+        "video_id": "fake_000009",
+        "url": "https://www.youtube.com/watch?v=test_fake_000009",
+        "start": 0,
+        "end": 15
+      },
+      "real": {
+        "video_id": "real_000009",
+        "url": "https://www.youtube.com/watch?v=test_real_000009",
+        "start": 0,
+        "end": 15
+      }
+    }
+  ],
+  "directory_structure": {
+    "fake_audio": "fake_audio/mp4",
+    "real_audio": "real_audio/mp4",
+    "metadata": "metadata"
+  }
+}

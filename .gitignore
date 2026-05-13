@@ -1,0 +1,44 @@
+# Large data files
+*.csv
+AVDeepfake1M_local/
+paired_dataset/
+test_pairs/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+
+# Virtual environments
+venv/
+env/
+.venv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+
+# Logs
+*.log
+*.err
+*.out
+
+# Temporary files
+*.tmp
+*~
+.temp/

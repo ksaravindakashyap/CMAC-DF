@@ -1,0 +1,124 @@
+{
+  "timestamp": "/home/sengg/deep-learning-course-project",
+  "summary": {
+    "fake_videos_valid": 10,
+    "fake_videos_total": 10,
+    "fake_videos_invalid": 0,
+    "real_videos_valid": 10,
+    "real_videos_total": 10,
+    "real_videos_invalid": 0,
+    "complete_pairs": 10,
+    "orphaned_fake": 0,
+    "orphaned_real": 0,
+    "mismatched": 0
+  },
+  "failed_pairs": {
+    "fake_only": [],
+    "real_only": [],
+    "mismatched": []
+  },
+  "fake_videos": {
+    "pair_0000": {
+      "path": "fake_audio/mp4/pair_0000/video.mp4",
+      "status": "valid",
+      "size_mb": 0.028089523315429688
+    },
+    "pair_0001": {
+      "path": "fake_audio/mp4/pair_0001/video.mp4",
+      "status": "valid",
+      "size_mb": 0.028089523315429688
+    },
+    "pair_0002": {
+      "path": "fake_audio/mp4/pair_0002/video.mp4",
+      "status": "valid",
+      "size_mb": 0.028089523315429688
+    },
+    "pair_0003": {
+      "path": "fake_audio/mp4/pair_0003/video.mp4",
+      "status": "valid",
+      "size_mb": 0.028089523315429688
+    },
+    "pair_0004": {
+      "path": "fake_audio/mp4/pair_0004/video.mp4",
+      "status": "valid",
+      "size_mb": 0.028089523315429688
+    },
+    "pair_0005": {
+      "path": "fake_audio/mp4/pair_0005/video.mp4",
+      "status": "valid",
+      "size_mb": 0.028089523315429688
+    },
+    "pair_0006": {
+      "path": "fake_audio/mp4/pair_0006/video.mp4",
+      "status": "valid",
+      "size_mb": 0.028089523315429688
+    },
+    "pair_0007": {
+      "path": "fake_audio/mp4/pair_0007/video.mp4",
+      "status": "valid",
+      "size_mb": 0.028089523315429688
+    },
+    "pair_0008": {
+      "path": "fake_audio/mp4/pair_0008/video.mp4",
+      "status": "valid",
+      "size_mb": 0.028089523315429688
+    },
+    "pair_0009": {
+      "path": "fake_audio/mp4/pair_0009/video.mp4",
+      "status": "valid",
+      "size_mb": 0.028089523315429688
+    }
+  },
+  "real_videos": {
+    "pair_0000": {
+      "path": "real_audio/mp4/pair_0000/video.mp4",
+      "status": "valid",
+      "size_mb": 0.028089523315429688
+    },
+    "pair_0001": {
+      "path": "real_audio/mp4/pair_0001/video.mp4",
+      "status": "valid",
+      "size_mb": 0.028089523315429688
+    },
+    "pair_0002": {
+      "path": "real_audio/mp4/pair_0002/video.mp4",
+      "status": "valid",
+      "size_mb": 0.028089523315429688
+    },
+    "pair_0003": {
+      "path": "real_audio/mp4/pair_0003/video.mp4",
+      "status": "valid",
+      "size_mb": 0.028089523315429688
+    },
+    "pair_0004": {
+      "path": "real_audio/mp4/pair_0004/video.mp4",
+      "status": "valid",
+      "size_mb": 0.028089523315429688
+    },
+    "pair_0005": {
+      "path": "real_audio/mp4/pair_0005/video.mp4",
+      "status": "valid",
+      "size_mb": 0.028089523315429688
+    },
+    "pair_0006": {
+      "path": "real_audio/mp4/pair_0006/video.mp4",
+      "status": "valid",
+      "size_mb": 0.028089523315429688
+    },
+    "pair_0007": {
+      "path": "real_audio/mp4/pair_0007/video.mp4",
+      "status": "valid",
+      "size_mb": 0.028089523315429688
+    },
+    "pair_0008": {
+      "path": "real_audio/mp4/pair_0008/video.mp4",
+      "status": "valid",
+      "size_mb": 0.028089523315429688
+    },
+    "pair_0009": {
+      "path": "real_audio/mp4/pair_0009/video.mp4",
+      "status": "valid",
+      "size_mb": 0.028089523315429688
+    }
+  }
+}

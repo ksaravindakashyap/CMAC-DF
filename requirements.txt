@@ -1,0 +1,6 @@
+blind-rt60
+librosa
+numpy
+scipy
+soundfile
+matplotlib

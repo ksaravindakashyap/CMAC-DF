@@ -112,7 +112,7 @@ Each clip directory contains three files:
 
 **Subset used:** 600 clips (200 per class, balanced).
 
----
+The script samples up to 600 clips, runs the scene-frame quality check, generates RIR/RT60/DRR outputs, and writes summary JSON/CSV files.
 
 ## Results — Full 600-Clip Run
 
@@ -142,6 +142,4 @@ Each clip directory contains three files:
 
 ## Limitations and Future Work
 
-- Filter to clips where sufficient room context is visible (the ~7% that pass the scene quality check) for a meaningful visual stream evaluation.
-- Transition from static 2D image inference to temporal video-based RIR extraction.
-- Project audio-derived and video-derived features into a shared latent embedding space using contrastive learning rather than comparing scalar parameters directly.
+The script samples up to 600 clips from the local tree, preserves the three clip types in the subset (`real`, `real_video_fake_audio`, and `fake_video_fake_audio`), runs the visual RIR pipeline, and writes summary JSON/CSV files.

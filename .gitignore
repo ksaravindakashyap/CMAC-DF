@@ -7,10 +7,9 @@ __pycache__/
 .venv/
 .venv_win/
 
-# Per-sample result directories (contain .wav/.npy/.png per clip — too large)
-# Summary CSVs and JSON at the top of each folder are still tracked
-resultsavdeepfake1m_full/sample_*/
-resultsavdeepfake1m_check/sample_*/
+# All result directories — dataset-derived, not to be committed
+resultsavdeepfake1m_full/
+resultsavdeepfake1m_check/
 resultssmoke_test/
 
 # Large binary result files

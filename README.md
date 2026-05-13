@@ -1,86 +1,147 @@
-# CMAC-DF Visual RIR Pipeline
+# Cross-Modal Acoustic Consistency for Audio-Visual Deepfake Detection
 
-This repository includes a visual room impulse response pipeline built on Image2Reverb, plus a standalone RT60 estimator for downstream use.
+This repository implements the visual and cross-modal acoustic pipeline for the CMAC-DF project. The core idea is that authentic audio-visual recordings must be physically consistent — the room acoustics heard in the audio (RT60, DRR) should match the acoustics predicted from the visible scene geometry. Manipulated videos systematically violate this constraint.
+
+**Authors:** Sneha Aggarwal, Matthew Nissen, Aravinda Kashyap — Virginia Tech
+
+---
+
+## Overview
+
+The pipeline has two streams:
+
+- **Visual stream** — extracts a representative frame from the video, runs it through Image2Reverb (a GAN-based neural network) to synthesize the expected Room Impulse Response (RIR), then computes RT60 and DRR from that RIR.
+- **Audio stream** — estimates RT60 from the speech signal using blind estimation, and estimates DRR by separating the direct and reverberant waveforms using SpeechBrain SepFormer.
+
+The **cross-modal discrepancy score** is then computed as:
+
+```
+score = |RT60_audio - RT60_video| + |DRR_audio - DRR_video|
+```
+
+A high score indicates the audio acoustics do not match the visual scene — a signal of manipulation.
+
+---
+
+## Acoustic Parameters
+
+| Parameter | Description |
+|-----------|-------------|
+| **RT60** | Reverberation time — how long it takes for sound to decay 60 dB. Larger rooms with hard surfaces (tile, concrete) yield longer RT60; smaller rooms with absorptive materials (carpet, curtains) yield shorter RT60. |
+| **DRR** | Direct-to-Reverberant Ratio — energy of the direct sound path vs. reflected components, in dB. High DRR = anechoic/close-mic conditions. TTS/VC synthetic audio typically has abnormally high DRR. |
+
+---
 
 ## Setup
 
-Download the required pretrained models:
+Download the required pretrained models (Image2Reverb checkpoint, ResNet50/Places365, Monodepth2):
 
 ```powershell
 python setup_models.py --models_dir models --install_deps
 ```
 
-If you already have the dependencies installed, you can omit `--install_deps`.
+Omit `--install_deps` if dependencies are already installed.
 
-## Video to RIR to RT60
+**Dependencies:** `torch`, `torchvision`, `torchaudio`, `pytorch-lightning`, `opencv-python`, `Pillow`, `scipy`, `numpy`, `soundfile`, `librosa`, `pyroomacoustics`
 
-Generate an RIR from a video and estimate RT60 from that RIR in one step:
+---
+
+## Scripts
+
+### `visual_rir_estimator.py`
+Core pipeline. Extracts a frame from a video, runs Image2Reverb inference, and computes RT60 and DRR from the synthesized RIR.
 
 ```powershell
 python visual_rir_estimator.py --video path\to\video.mp4 --output_dir results
 ```
 
-This will:
+Outputs `rir.npy`, `rir.wav`, `rt60.json`, `drr.json` in the output directory.
 
-1. Extract a representative frame from the video.
-2. Run Image2Reverb to generate an RIR waveform.
-3. Estimate RT60 from the RIR.
-4. Save `rir.npy`, `rir.wav`, and `rt60.json` in the output directory.
+### `check_avdeepfake1m_compatibility.py`
+Runs the visual pipeline on the AVDeepfake1M dataset and produces per-clip RT60/DRR estimates across the three clip types (`real`, `real_video_fake_audio`, `fake_video_fake_audio`).
 
-## RT60 From an Existing RIR
+```powershell
+python check_avdeepfake1m_compatibility.py \
+  --dataset_root C:\path\to\videos_subset_600 \
+  --sample_count 1000 \
+  --output_dir results\avdeepfake1m_full \
+  --verbose
+```
 
-If you already have a generated RIR file, use the standalone helper:
+Use `--sample_count 1000` (or any number above the total clip count) to process all clips.
+
+### `compare_cross_modal.py`
+Joins the visual RT60/DRR results with audio-derived RT60 and DRR CSVs, computes per-clip cross-modal discrepancy scores, and saves a merged comparison CSV.
+
+```powershell
+python compare_cross_modal.py
+```
+
+Output: `resultsavdeepfake1m_full\cross_modal_comparison.csv`
+
+### `classify_deepfake.py`
+Evaluates several acoustic signals (audio-only, video-only, and cross-modal) as deepfake classifiers. For each signal, finds the optimal decision threshold by grid search and reports accuracy, precision, recall, and F1.
+
+```powershell
+python classify_deepfake.py
+```
+
+### `rt60_from_rir.py` / `drr_from_rir.py`
+Standalone helpers to estimate RT60 or DRR from a saved RIR file.
 
 ```powershell
 python rt60_from_rir.py --rir path\to\rir.wav --output_json results\rt60.json
-```
-
-For `.npy` input, pass the sample rate explicitly:
-
-```powershell
-python rt60_from_rir.py --rir path\to\rir.npy --sample_rate 22050 --output_json results\rt60.json
-```
-
-## DRR From an Existing RIR
-
-If you want direct-to-reverberant ratio from a saved RIR waveform, use the DRR helper:
-
-```powershell
 python drr_from_rir.py --rir path\to\rir.wav --output_json results\drr.json
 ```
 
-For `.npy` input, pass the sample rate explicitly:
+For `.npy` input, add `--sample_rate 22050`.
 
-```powershell
-python drr_from_rir.py --rir path\to\rir.npy --sample_rate 22050 --output_json results\drr.json
-```
+---
 
-## Example Image Self-Test
+## Dataset — AVDeepfake1M
 
-You can verify the pipeline with the bundled Image2Reverb example image path:
+**Path:** `videos_subset_600/train/<speaker_id>/<session>/<clip>/`
 
-```powershell
-python visual_rir_estimator.py --self_test --output_dir results
-```
+Each clip directory contains three files:
 
-If the example image exists at `image2reverb/datasets/examples/bedroom-1/test/input.png`, the script will generate an example RIR and RT60 estimate.
+| File | Description |
+|------|-------------|
+| `real.mp4` | Real video, real audio |
+| `real_video_fake_audio.mp4` | Real video, TTS/VC synthesized audio |
+| `fake_video_fake_audio.mp4` | Face-swapped video, TTS/VC synthesized audio |
 
-## VoxCeleb1 Compatibility Check
+**Subset used:** 600 clips (200 per class, balanced).
 
-If you have VoxCeleb1 downloaded locally, you can run a 100-clip compatibility check to see whether the visual pipeline is extracting meaningful values:
+---
 
-```powershell
-python check_voxceleb1_compatibility.py --dataset_root path\to\VoxCeleb1 --sample_count 100 --output_dir results\voxceleb1_check
-```
+## Results — Full 600-Clip Run
 
-The script samples up to 100 clips, runs the scene-frame quality check, generates RIR/RT60/DRR outputs, and writes summary JSON/CSV files.
+**Visual pipeline** (Image2Reverb on video frames):
 
-## AVDeepfake1M Compatibility Check
+| Clip Type | RT60 Mean | RT60 Median | DRR Mean | DRR Median |
+|-----------|-----------|-------------|----------|------------|
+| real | 5.20s | 2.49s | −16.16 dB | −16.53 dB |
+| real_video_fake_audio | 4.97s | 2.46s | −16.13 dB | −16.19 dB |
+| fake_video_fake_audio | 5.17s | 2.56s | −15.99 dB | −16.29 dB |
 
-If your local dataset is AVDeepfake1M, use the dataset-specific checker instead:
+**Cross-modal classification** (best threshold, grid search):
 
-```powershell
-python check_avdeepfake1m_compatibility.py --dataset_root C:\Users\arvis\Downloads\avdeepfake1m_660_videos\AVDeepfake1M_local\videos_subset_600 --sample_count 100 --output_dir results\avdeepfake1m_check
-```
+| Signal | Rule | Accuracy | Precision | Recall | F1 |
+|--------|------|----------|-----------|--------|----|
+| Audio RT60 | < 3.94s → FAKE | 66.8% | 0.668 | 1.000 | 0.801 |
+| Audio DRR | > −12.72 dB → FAKE | 66.8% | 0.669 | 0.995 | 0.800 |
+| Cross-modal sum | > 0.39 → FAKE | 66.5% | 0.666 | 0.998 | 0.799 |
 
-The script samples up to 100 clips from the local tree, preserves the three clip types in the subset (`real`, `real_video_fake_audio`, and `fake_video_fake_audio`), runs the visual RIR pipeline, and writes summary JSON/CSV files.
+**Key finding:** All signals achieve ~66.8% accuracy, equal to the majority-class baseline (400/600 clips are fake). The classifier flags nearly every clip as fake regardless of signal, indicating no discriminative separation between real and manipulated clips under the current setup.
+
+**Root causes:**
+1. **Visual stream degradation** — 93% of clips triggered face-shot fallback (scene quality check failed), so Image2Reverb received face images instead of room geometry, producing near-constant and uninformative predictions.
+2. **Audio signal collapse** — blind RT60 and DRR estimates from speech are statistically indistinguishable across all three clip types.
+
+---
+
+## Limitations and Future Work
+
+- Filter to clips where sufficient room context is visible (the ~7% that pass the scene quality check) for a meaningful visual stream evaluation.
+- Transition from static 2D image inference to temporal video-based RIR extraction.
+- Project audio-derived and video-derived features into a shared latent embedding space using contrastive learning rather than comparing scalar parameters directly.
